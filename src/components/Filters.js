@@ -1,12 +1,86 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useFilterContext } from '../context/filter_context'
-import { getUniqueValues, formatPrice } from '../utils/helpers'
-import { FaCheck } from 'react-icons/fa'
+import React from 'react';
+import styled from 'styled-components';
+import { useFilterContext } from '../context/filter_context';
+import { getUniqueValues, formatPrice } from '../utils/helpers';
+import { FaCheck } from 'react-icons/fa';
 
 const Filters = () => {
-  return <h4>filters</h4>
-}
+  const {
+    filters: {
+      text,
+      company,
+      category,
+      color,
+      min_price,
+      max_price,
+      price,
+      shipping,
+    },
+    updateFilters,
+    clearFilters,
+    allProducts,
+  } = useFilterContext();
+
+  const categories = getUniqueValues(allProducts, 'category');
+  const companies = getUniqueValues(allProducts, 'company');
+  const colors = getUniqueValues(allProducts, 'colors');
+
+  return (
+    <Wrapper>
+      <div className="content">
+        <form onSubmit={(e) => e.preventDefault()}>
+          {/* search */}
+          <div className="form-control">
+            <input
+              type="text"
+              name="text"
+              placeholder="search"
+              className="search-input"
+              value={text}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* seach end  */}
+          {/* category filter  */}
+          <div className="form-control">
+            <h5>category</h5>
+            <div>
+              {categories.map((cat, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  name="category"
+                  className={`${category === cat.toLowerCase() && 'active'}`}
+                  onClick={updateFilters}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* category end */}
+          {/* company select filter */}
+          <div className="form-control">
+            <h5>company</h5>
+            <select
+              name="company"
+              className="company"
+              value={company}
+              onChange={updateFilters}
+            >
+              {companies.map((company, idx) => (
+                <option key={idx} value={company}>
+                  {company}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* company end */}
+        </form>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   .form-control {
@@ -106,6 +180,6 @@ const Wrapper = styled.section`
       top: 1rem;
     }
   }
-`
+`;
 
-export default Filters
+export default Filters;
