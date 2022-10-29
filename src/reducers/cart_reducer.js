@@ -66,15 +66,18 @@ const cart_reducer = (state, action) => {
     return { ...state, cart: updatedCartArray };
   }
 
+  //Removing item from cart
   if (action.type === REMOVE_CART_ITEM) {
     const removedItemArray = removeItem(state.cart, action.payload);
     return { ...state, cart: removedItemArray };
   }
 
+  //Clearing out cart
   if (action.type === CLEAR_CART) {
     return { ...state, cart: [] };
   }
 
+  // Using reduce to calculate the total qunatity and total price
   if (action.type === COUNT_CART_TOTALS) {
     const { total_items, total_amount } = state.cart.reduce(
       (total, cartItem) => {

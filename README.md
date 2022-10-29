@@ -1,1 +1,3 @@
-This is a massive course project. I couldve skipped it as it didnt really offered anything new. However this project was massive I saw that it offered potential experience in working on big projects and learning file structuring etc.
+Using react useContext for state management, styled components for styling. Stripe for check out
+
+![screen shoot](comfy.png)
